@@ -30,6 +30,7 @@ def add_collection_items_from_xml(collection: Collection, xml_root: ET.Element, 
         data = {
             "name": xml_subelement_text(item, "name"),
             "id": int(item.attrib["objectid"]),
+            "collid": int(item.attrib["collid"]),
             "image": xml_subelement_text(item, "image"),
             "thumbnail": xml_subelement_text(item, "thumbnail"),
             "yearpublished": xml_subelement_attr(item, "yearpublished", default=0, convert=int, quiet=True),
