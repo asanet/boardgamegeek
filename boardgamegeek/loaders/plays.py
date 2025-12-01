@@ -67,6 +67,7 @@ def add_plays_from_xml(plays: Plays, xml_root: ET.Element) -> bool:
             "duration": int(play.attrib["length"]),
             "incomplete": int(play.attrib["incomplete"]),
             "nowinstats": int(play.attrib["nowinstats"]),
+            "location": play.attrib["location"],
             # for User plays, will be overwritten with the user id when adding the play.
             "user_id": int(play.attrib.get("userid", -1)),
             "game_id": xml_subelement_attr(play, "item", attribute="objectid", convert=int),

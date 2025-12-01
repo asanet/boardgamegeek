@@ -30,6 +30,7 @@ def add_collection_items_from_xml(collection: Collection, xml_root: ET.Element, 
         data = {
             "name": xml_subelement_text(item, "name"),
             "id": int(item.attrib["objectid"]),
+            "collid": int(item.attrib["collid"]),
             "image": xml_subelement_text(item, "image"),
             "thumbnail": xml_subelement_text(item, "thumbnail"),
             "yearpublished": xml_subelement_attr(item, "yearpublished", default=0, convert=int, quiet=True),
@@ -74,6 +75,24 @@ def add_collection_items_from_xml(collection: Collection, xml_root: ET.Element, 
                 "rating": xml_subelement_attr(stats, "rating", convert=float, quiet=True),
             }
         )
+
+        private = item.find("privateinfo")
+        if private is not None:
+            data.update(
+                {
+                    info: private.attrib.get(info)
+                    for info in [
+                        "pp_currency",
+                        "pricepaid",
+                        "cv_currency",
+                        "currvalue",
+                        "quantity",
+                        "acquisitiondate",
+                        "acquiredfrom",
+                        "inventorylocation"
+                    ]
+                }
+            )
 
         # status of the item in the collection
         status = item.find("status")

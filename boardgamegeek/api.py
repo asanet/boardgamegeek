@@ -660,7 +660,7 @@ class BGGCommon:
         if subtype not in COLLECTION_SUBTYPES:
             raise BGGValueError("invalid 'subtype'")
 
-        params = {"username": user_name, "subtype": subtype, "stats": 1}
+        params = {"username": user_name, "subtype": subtype, "stats": 1, "showprivate": 1}
 
         if exclude_subtype is not None:
             if exclude_subtype not in COLLECTION_SUBTYPES:
