@@ -20,11 +20,6 @@ def create_plays_from_xml(xml_root: ET.Element, game_id: int | None = None) -> P
     except (KeyError, ValueError):
         pass
 
-    if not count:
-        # TODO: test with something that has 0 plays.
-        # count is zero when passed an invalid game id
-        raise BGGItemNotFoundError("invalid user name or game id")
-
     if game_id is None:
         # User's plays
         return UserPlays(
@@ -35,6 +30,10 @@ def create_plays_from_xml(xml_root: ET.Element, game_id: int | None = None) -> P
             }
         )
     else:
+        if not count:
+            # TODO: test with something that has 0 plays.
+            # count is zero when passed an invalid game id
+            raise BGGItemNotFoundError("invalid user name or game id")
         return GamePlays({"game_id": game_id, "plays_count": count})
 
 
